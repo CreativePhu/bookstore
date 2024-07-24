@@ -8,20 +8,21 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "author")
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private long roleId;
+    @Column(name = "author_id")
+    private Long authorId;
 
-    @Column(name = "role_name")
-    private String roleName;
+    @Column(name = "author_name")
+    private String authorName;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    @ManyToMany(mappedBy = "authors")
+    private List<Book> books;
+
 }

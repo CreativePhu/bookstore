@@ -1,5 +1,6 @@
 package com.vn.bookstore_be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -26,6 +28,7 @@ public class User {
     private String userName;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "phone")
@@ -43,7 +46,7 @@ public class User {
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
