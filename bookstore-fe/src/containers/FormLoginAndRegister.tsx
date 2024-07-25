@@ -2,6 +2,7 @@ import React from "react";
 import {Overlay} from "../compoments/Overlay";
 import {Col, Row} from "react-bootstrap";
 import FormLogin from "../compoments/FormLogin";
+import {FormRegister} from "../compoments/FormRegister";
 
 enum OptionType {
     LOGIN = "LOGIN",
@@ -38,7 +39,9 @@ export const FormLoginAndRegister = () => {
                     <Option active={typeActive} setActive={setTypeActive} text={"Đăng nhập"} type={OptionType.LOGIN} />
                     <Option active={typeActive} setActive={setTypeActive} text={"Đăng kí"} type={OptionType.REGISTER} />
                 </Row>
-                <FormLogin />
+                {
+                    (typeActive === OptionType.LOGIN) ? <FormLogin /> : <FormRegister />
+                }
             </div>
         </Overlay>
     );
