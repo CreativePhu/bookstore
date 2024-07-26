@@ -1,9 +1,12 @@
 package com.vn.bookstore_be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,8 +23,8 @@ public class Publisher {
     @Column(name = "publisher_name")
     private String publisherName;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Book> books;
 
 }
