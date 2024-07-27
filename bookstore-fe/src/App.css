@@ -44,3 +44,7 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.background-gray {
+    background: #f0f0f0;
+}
