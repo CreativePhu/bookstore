@@ -28,11 +28,11 @@ const HeroSectionContentOneRight: React.FC = () => {
     return (
         <div className={"d-none d-xxl-flex flex-column justify-content-between"}>
             <Image
-                src="https://cdn0.fahasa.com/media/magentothem/banner7/Laprap_Slide_T7_840x320.jpg"
+                src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/DoiTac_SubBanner_392x156_2.jpg"
                 className={"rounded"}
                 style={{width: "450px", height: "160px", paddingBottom: "3px"}}
             />
-            <Image src="https://cdn0.fahasa.com/media/magentothem/banner7/Laprap_Slide_T7_840x320.jpg"
+            <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-08-2024/VPbank392x156.png"
                    className={"rounded"}
                    style={{width: "450px", height: "160px", paddingTop: "3px"}}
             />
@@ -42,7 +42,7 @@ const HeroSectionContentOneRight: React.FC = () => {
 
 const HeroSectionContentOne: React.FC = () => {
     return (
-        <div className={"d-flex flex-row justify-content-center justify-content-xxl-between py-2"}>
+        <div className={"d-flex flex-row justify-content-center justify-content-xxl-between pt-3"}>
             <HeroSectionContentOneLeft/>
             <HeroSectionContentOneRight/>
         </div>
@@ -51,7 +51,7 @@ const HeroSectionContentOne: React.FC = () => {
 
 const HeroSectionContentTwo: React.FC = () => {
     return (
-        <Row>
+        <Row className={"mt-2"}>
             <Col className={"pe-0"}>
                 <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/Hotwheels_Smallbanner_T7_310x210.jpg"
                        className={"rounded"}
@@ -65,13 +65,13 @@ const HeroSectionContentTwo: React.FC = () => {
                 />
             </Col>
             <Col className={"pe-0"}>
-                <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/Hotwheels_Smallbanner_T7_310x210.jpg"
+                <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/Backtoschool_mainbannerT7__SmallBanner_310x210.jpg"
                        className={"rounded"}
                        fluid
                 />
             </Col>
             <Col>
-                <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/BannerNgoaiVan0707_SmallBanner_310x210.jpg"
+                <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/TrangDoChoiThang7_Resize_SmallBanner_T7_310x210_2.jpg"
                        className={"rounded"}
                        fluid
                 />

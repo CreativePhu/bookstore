@@ -48,3 +48,7 @@
 .background-gray {
     background: #f0f0f0;
 }
+
+.hidden-scroll {
+    overflow: hidden;
+}
