@@ -10,7 +10,7 @@ interface ItemMenuUserProps {
 
 const LogoBrand = () => {
     return (
-        <div title={"logo_brand"} className={"d-flex flex-grow-1 flex-lg-grow-0 justify-content-center"}>
+        <div title={"logo_brand"} className={"d-flex flex-grow-1 flex-lg-grow-0 justify-content-center mb-3 mb-lg-0"}>
             <Image src={logo_brand} fluid style={{width: "220px", height: "auto"}} />
         </div>
     );
@@ -18,7 +18,7 @@ const LogoBrand = () => {
 
 const MenuSearch = () => {
     return (
-        <div title={"menu_search"} className={"d-flex flex-row flex-grow-1 flex-sm-grow-0 align-items-center mt-3 mt-md-0"} style={{minWidth: "260px", width: "550px"}}>
+        <div title={"menu_search"} className={"d-flex flex-row flex-grow-1 flex-sm-grow-0 align-items-center"} style={{minWidth: "260px", width: "550px"}}>
             <span title={"icon_menu"} className={"mx-3"}>
                 <Icon.Grid color={"gray"} size={30}/>
             </span>

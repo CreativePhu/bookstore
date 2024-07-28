@@ -53,11 +53,11 @@ const listImages: ImageCategory[] = [
 export const Categories: React.FC = () => {
     return (
         <Container className={"mt-3"}>
-            <div className={"d-flex justify-content-around pt-3 bg-white rounded overflow-x-scroll"}>
+            <div className={"d-flex justify-content-around bg-white rounded overflow-x-scroll pt-3 gap-3 px-2 hiden-scroll"}>
                 {
                     listImages.map((image, index) => {
                         return (
-                            <div key={index} className={"flex-shrink-0 flex-grow-0 mx-2"} style={{width: "100px"}}>
+                            <a href={image.url} key={index} className={"flex-shrink-0 flex-grow-0 text-decoration-none text-dark"} style={{width: "100px"}}>
                                 <Image
                                     src={image.url}
                                     className={"img-fluid"}
@@ -66,7 +66,7 @@ export const Categories: React.FC = () => {
                                     style={{width: "40px", height: "40px"}}
                                 />
                                 <p className={"mt-1 mb-2"} style={{fontSize: "14px"}}>{image.name}</p>
-                            </div>
+                            </a>
                         )
                     })
                 }
