@@ -3,6 +3,7 @@ import {Container} from "react-bootstrap";
 import {HeroSection} from "./HeroSection";
 import {Categories} from "./Categories";
 import {NewBook} from "./NewBook";
+import {ProductPortfolio} from "./ProductPortfolio";
 
 export const Content : React.FC = () => {
     return (
@@ -10,6 +11,7 @@ export const Content : React.FC = () => {
             <HeroSection/>
             <Categories/>
             <NewBook/>
+            <ProductPortfolio/>
         </Container>
     )
 }

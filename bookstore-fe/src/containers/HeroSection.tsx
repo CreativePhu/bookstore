@@ -9,6 +9,7 @@ const HeroSectionContentOneLeft: React.FC = () => {
                     <Image
                         src="https://cdn0.fahasa.com/media/magentothem/banner7/Laprap_Slide_T7_840x320.jpg"
                         className={"rounded"}
+                        loading={"lazy"}
                         fluid
                     />
                 </Carousel.Item>
@@ -16,6 +17,7 @@ const HeroSectionContentOneLeft: React.FC = () => {
                     <Image
                         src="https://cdn0.fahasa.com/media/magentothem/banner7/Trang_baloMrVui_0724_Slidebanner_840x320-20.jpg"
                         className={"rounded"}
+                        loading={"lazy"}
                         fluid
                     />
                 </Carousel.Item>
@@ -30,10 +32,12 @@ const HeroSectionContentOneRight: React.FC = () => {
             <Image
                 src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/DoiTac_SubBanner_392x156_2.jpg"
                 className={"rounded"}
+                loading={"lazy"}
                 style={{width: "450px", height: "160px", paddingBottom: "3px"}}
             />
             <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-08-2024/VPbank392x156.png"
                    className={"rounded"}
+                   loading={"lazy"}
                    style={{width: "450px", height: "160px", paddingTop: "3px"}}
             />
         </div>
@@ -56,24 +60,28 @@ const HeroSectionContentTwo: React.FC = () => {
                 <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/Hotwheels_Smallbanner_T7_310x210.jpg"
                        className={"rounded"}
                        fluid
+                       loading={"lazy"}
                 />
             </Col>
             <Col className={"pe-0"}>
                 <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/BannerNgoaiVan0707_SmallBanner_310x210.jpg"
                        className={"rounded"}
                        fluid
+                       loading={"lazy"}
                 />
             </Col>
             <Col className={"pe-0"}>
                 <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/Backtoschool_mainbannerT7__SmallBanner_310x210.jpg"
                        className={"rounded"}
                        fluid
+                       loading={"lazy"}
                 />
             </Col>
             <Col>
                 <Image src="https://cdn0.fahasa.com/media/wysiwyg/Thang-07-2024/TrangDoChoiThang7_Resize_SmallBanner_T7_310x210_2.jpg"
                        className={"rounded"}
                        fluid
+                       loading={"lazy"}
                 />
             </Col>
         </Row>

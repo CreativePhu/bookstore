@@ -11,7 +11,7 @@ interface ItemMenuUserProps {
 const LogoBrand = () => {
     return (
         <div title={"logo_brand"} className={"d-flex flex-grow-1 flex-lg-grow-0 justify-content-center mb-3 mb-lg-0"}>
-            <Image src={logo_brand} fluid style={{width: "220px", height: "auto"}} />
+            <Image src={logo_brand} loading={"lazy"} fluid style={{width: "220px", height: "auto"}} />
         </div>
     );
 }
