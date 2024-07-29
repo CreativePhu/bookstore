@@ -115,3 +115,8 @@
     font-size: 14px;
     margin-top: 10px;
 }
+
+.book-new-button-left:hover, .book-new-button-right:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

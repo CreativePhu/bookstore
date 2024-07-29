@@ -40,25 +40,68 @@ const Book: React.FC = () => {
 }
 
 const ListNewBook: React.FC = () => {
+
+    const handleScroll = React.useRef<HTMLDivElement | null>(null);
+
+    const scrollLeft = () => {
+        if (handleScroll.current) {
+            handleScroll.current.scrollBy({
+                left: -handleScroll.current.offsetWidth - 40,
+                behavior: 'smooth',
+            });
+        }
+    };
+
+    const scrollRight = () => {
+        if (handleScroll.current) {
+            handleScroll.current.scrollBy({
+                left: handleScroll.current.offsetWidth + 40,
+                behavior: 'smooth',
+            });
+        }
+    };
+
     return (
         <Container>
-            <div className={"list-book-new hiden-scroll"}>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
+            <div className={"position-relative"}>
+                <div ref={handleScroll} className={"list-book-new hiden-scroll"}>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                    <Book/>
+                </div>
+                <div className="position-absolute top-50 start-0 translate-middle">
+                    <div
+                        onClick={() => {
+                            scrollLeft();
+                        }}
+                        className={"book-new-button-left rounded-circle bg-white d-flex justify-content-center align-items-center shadow"}
+                        style={{width: "30px", height: "30px"}}>
+                        <Icon.ChevronLeft size={15}/>
+                    </div>
+                </div>
+                <div className="position-absolute top-50 start-100 translate-middle">
+                    <div
+                        onClick={() => {
+                            scrollRight();
+                        }}
+                        className={"book-new-button-right rounded-circle bg-white d-flex justify-content-center align-items-center shadow"}
+                        style={{width: "30px", height: "30px"}}>
+                        <Icon.ChevronRight size={15}/>
+                    </div>
+                </div>
             </div>
         </Container>
     )
 }
 
-export const BookNew: React.FC = () => {
+export const NewBook: React.FC = () => {
     return (
         <Container
             fluid
