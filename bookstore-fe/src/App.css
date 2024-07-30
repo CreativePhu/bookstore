@@ -116,7 +116,11 @@
     margin-top: 10px;
 }
 
+.book-new-button-left, .book-new-button-right {
+    opacity: 0.6;
+}
+
 .book-new-button-left:hover, .book-new-button-right:hover {
-    opacity: 0.8;
+    opacity: 0.9;
     cursor: pointer;
 }
