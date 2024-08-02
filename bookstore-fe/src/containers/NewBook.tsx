@@ -1,6 +1,7 @@
 import React from "react";
-import {Badge, Button, Container, Image} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
+import {CardNewBook} from "../compoments/CardNewBook";
 
 enum ScrollStatus {
     LEFT = "left",
@@ -25,24 +26,6 @@ const NewBookLable: React.FC = () => {
             </div>
         </Container>
     );
-}
-
-const Book: React.FC = () => {
-    return (
-        <div className={"book"}>
-            <a href={"/"} className={"image-book"}>
-                <Image src="https://cdn0.fahasa.com/media/catalog/product/c/h/chiasetutraitim-bia.jpg" loading={"lazy"} fluid/>
-            </a>
-            <a href={"/"} className={"book-title"}>
-                Chia sẻ từ trái tim Chia sẻ từ trái tim Chia sẻ từ trái tim Chia sẻ từ trái tim
-            </a>
-            <span className={"book-price"}>
-                100.000đ <Badge className={"py-2 ms-2"} bg="danger">-10%</Badge>
-            </span>
-            <span className={"book-price-discount"}>100.000đ</span>
-            <span className={"paid"}>Đã bán 100</span>
-        </div>
-    )
 }
 
 const ListNewBook: React.FC = () => {
@@ -95,16 +78,16 @@ const ListNewBook: React.FC = () => {
         <Container>
             <div className={"position-relative"}>
                 <div ref={handleScrollListNewBook} className={"list-book-new hiden-scroll"}>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
-                    <Book/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
+                    <CardNewBook/>
                 </div>
                 <div className={`position-absolute top-50 start-0 translate-middle ${scrollStatus !== ScrollStatus.LEFT ? "d-block" : "d-none"}`}>
                     <div
