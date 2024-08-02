@@ -3,20 +3,23 @@ import {Button, Container, Form, Image, InputGroup} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import logo_brand from "../assets/images/logo_brand.webp";
 import {Link} from "react-router-dom";
+import {useFormLoginAndRegisterDispatch} from "../App";
 
 interface ItemMenuUserProps {
     icon: React.ReactNode;
     text: string;
 }
 
+const StatusHoverAccountContext = React.createContext(false);
+
 const LogoBrand = () => {
     return (
-        <Link to={"/"}>
-            <div title={"logo_brand"}
-                 className={"d-flex flex-grow-1 flex-lg-grow-0 justify-content-center mb-3 mb-lg-0"}>
+        <div title={"logo_brand"}
+             className={"d-flex flex-grow-1 flex-lg-grow-0 justify-content-center mb-3 mb-lg-0"}>
+            <Link to={"/"}>
                 <Image src={logo_brand} loading={"lazy"} fluid style={{width: "220px", height: "auto"}}/>
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 }
 
@@ -37,7 +40,7 @@ const MenuSearch = () => {
     );
 }
 
-const ItemMenuUser : React.FC<ItemMenuUserProps> = ({icon, text}) => {
+const ItemMenuUser: React.FC<ItemMenuUserProps> = ({icon, text}) => {
     return (
         <div className={"px-2 cursor-pointer"}>
             {icon}
@@ -46,14 +49,56 @@ const ItemMenuUser : React.FC<ItemMenuUserProps> = ({icon, text}) => {
     );
 }
 
-const MenuUser = () => {
+const HoverAccount: React.FC<{ hover: boolean, setHover: React.Dispatch<boolean> }> = ({hover, setHover}) => {
+
+    const dispatch = useFormLoginAndRegisterDispatch();
+
     return (
-        <div className={"d-none d-md-flex flex-row"}>
-            <ItemMenuUser icon={<Icon.Cart color={"gray"} size={20}/>} text={"Giỏ hàng"}/>
-            <Link to={"/login"} className={"text-decoration-none"} >
-                <ItemMenuUser icon={<Icon.PersonFill color={"gray"} size={20}/>} text={"Tài khoản"}/>
-            </Link>
+        <div
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            className={`position-absolute bg-white rounded p-2 shadow-sm ${hover ? "d-block" : "d-none"}`}
+            style={{bottom: "-120%", right: 0, width: "200px"}}>
+            <Button
+                onClick={() => dispatch(true)}
+                variant="outline-danger"
+                className={"form-control fw-bold"}>
+                Đăng Nhập/Đăng Kí
+            </Button>
         </div>
+    )
+}
+
+const MenuUser = () => {
+
+    const statusHoverAccountReducer = (state: boolean, action: boolean) => {
+        switch (action) {
+            case true:
+                return true;
+            case false:
+                return false;
+            default:
+                return state;
+        }
+    }
+
+    const [statusHoverAccount, setStatusHoverAccount] = React.useReducer(statusHoverAccountReducer, false)
+
+    return (
+        <StatusHoverAccountContext.Provider value={statusHoverAccount}>
+            <div className={"d-none d-md-flex flex-row position-relative"}>
+                <ItemMenuUser icon={<Icon.Cart color={"gray"} size={20}/>} text={"Giỏ hàng"}/>
+                <Link
+                    onMouseEnter={() => setStatusHoverAccount(true)}
+                    onMouseLeave={() => setStatusHoverAccount(false)}
+                    to={"/login"}
+                    className={"text-decoration-none"}
+                >
+                    <ItemMenuUser icon={<Icon.PersonFill color={"gray"} size={20}/>} text={"Tài khoản"}/>
+                </Link>
+                <HoverAccount hover={statusHoverAccount} setHover={setStatusHoverAccount}/>
+            </div>
+        </StatusHoverAccountContext.Provider>
     );
 }
 

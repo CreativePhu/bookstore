@@ -9,7 +9,7 @@ export const LoginAndRegister: React.FC = () => {
     const [typeActive, setTypeActive] = React.useState<OptionType>(OptionType.LOGIN);
 
     return (
-        <Container className={"bg-white d-flex justify-content-center align-items-center"} style={{minHeight: "650px"}}>
+        <Container className={"bg-white d-flex justify-content-center align-items-center shadow-sm"} style={{minHeight: "650px"}}>
             <div className={"rounded-3 p-5"} style={{width: "450px"}}>
                 <Row className={"mb-3"}>
                     <Option active={typeActive} setActive={setTypeActive} text={"Đăng nhập"} type={OptionType.LOGIN}/>
