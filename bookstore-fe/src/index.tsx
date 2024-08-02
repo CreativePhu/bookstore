@@ -5,11 +5,30 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {LoginAndRegister} from "./pages/LoginAndRegister";
+import {Content} from "./containers/Content";
+import {Home} from "./pages/Home";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <Content />,
+                children: [
+                    {
+                        index: true,
+                        element: <Home />,
+                    },
+                    {
+                        path: "/login",
+                        element: <LoginAndRegister />,
+                    }
+                ],
+            }
+        ]
     },
 ]);
 

@@ -4,7 +4,7 @@ import {Col, Row} from "react-bootstrap";
 import FormLogin from "../compoments/FormLogin";
 import {FormRegister} from "../compoments/FormRegister";
 
-enum OptionType {
+export enum OptionType {
     LOGIN = "LOGIN",
     REGISTER = "REGISTER"
 }
@@ -16,7 +16,7 @@ interface OptionProps {
     type: OptionType;
 }
 
-const Option : React.FC<OptionProps> = ({active, setActive, text, type}) => {
+export const Option : React.FC<OptionProps> = ({active, setActive, text, type}) => {
     const classActive = "border-2 border-bottom text-danger border-danger"
     return (
         <Col
