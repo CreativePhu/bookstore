@@ -86,13 +86,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 3em;
-    line-height: 1.5em;
-    text-align: start;
+    height: 2.4rem;
+    line-height: 1.2rem;
+    text-align: center;
     margin-top: 10px;
     font-size: 16px;
     text-decoration: none;
     color: black;
+    width: 100%;
 }
 
 .book-price {
