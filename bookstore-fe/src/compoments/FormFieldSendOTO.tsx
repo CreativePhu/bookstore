@@ -10,6 +10,8 @@ interface FormFieldProps {
     value?: string;
     className?: string;
     time: number;
+    error?: string;
+    checkMail?: () => boolean;
 }
 
 export const FormFieldEmailSendOTP: React.FC<FormFieldProps> = (props) => {
@@ -32,8 +34,10 @@ export const FormFieldEmailSendOTP: React.FC<FormFieldProps> = (props) => {
     }, [time, isSendOTP])
 
     const handleSendOTP = () => {
-        setIsSendOTP(true);
-        setTime(props.time);
+        if(props.checkMail && !props.checkMail()) {
+            setIsSendOTP(true);
+            setTime(props.time);
+        }
     }
 
     return (
@@ -56,7 +60,7 @@ export const FormFieldEmailSendOTP: React.FC<FormFieldProps> = (props) => {
                     }
                 </Button>
             </InputGroup>
-            <div className={"form-text text-danger"}>We'll never share your email with anyone else.</div>
+            <div className={"form-text text-danger"}>{props.error}</div>
         </div>
     )
 }

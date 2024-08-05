@@ -9,6 +9,7 @@ interface FormFieldProps {
     onChange?: (name: string, value: string) => void;
     value?: string;
     className?: string;
+    error?: string;
 }
 
 export const FormField: React.FC<FormFieldProps> = (props) => {
@@ -27,7 +28,7 @@ export const FormField: React.FC<FormFieldProps> = (props) => {
                     }}
                 />
             </InputGroup>
-            <div className={"form-text text-danger"}>We'll never share your email with anyone else.</div>
+            <div className={"form-text text-danger"}>{props.error}</div>
         </div>
     )
 }

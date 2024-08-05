@@ -2,28 +2,53 @@ import React from "react";
 import {FormField} from "./FormField";
 import {Link} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
+import {FormErrors, FormData, MainFormProps} from "../interfaces/FormLoginAndRegisterInterfaces";
 
-interface FormData {
-    [key: string]: string;
-}
+const regexEmailPattern = process.env.REACT_APP_REGEX_EMAIL;
 
-interface MainFormProps {
-    children: React.ReactNode;
-    handleSubmit: (data: FormData) => void;
+if (!regexEmailPattern) {
+    throw new Error("Regex patterns are not defined in the environment variables");
 }
 
 const MainFormLogin: React.FC<MainFormProps> = ({children, handleSubmit}) => {
-
-    const [formData, setFormData] = React.useState<FormData>({
-        email: "",
-        password: ""
-    });
+    const REGEX_EMAIL = new RegExp(regexEmailPattern);
+    const [formData, setFormData] = React.useState<FormData>({email: "", password: ""});
+    const [errors, setErrors] = React.useState<FormErrors>({email: "", password: ""});
 
     const handleChange = (name: string, value: string) => {
         setFormData({
             ...formData,
             [name]: value
         });
+
+        if(errors[name]) {
+            setErrors((preValue) => {
+                const newErrors = {...preValue};
+                delete newErrors[name];
+                return newErrors;
+            })
+        }
+    }
+
+    const validateForm = () : boolean => {
+        const errors: FormErrors = {};
+        let check = false;
+
+        if (!formData.email) {
+            errors.email = "Vui lòng nhập email";
+            check = true;
+        } else if (!formData.email.match(REGEX_EMAIL)) {
+            errors.email = "Email không hợp lệ";
+            check = true;
+        }
+
+        if (!formData.password) {
+            errors.password = "Vui lòng nhập mật khẩu";
+            check = true;
+        }
+
+        setErrors(errors);
+        return check;
     }
 
     return (
@@ -33,7 +58,8 @@ const MainFormLogin: React.FC<MainFormProps> = ({children, handleSubmit}) => {
                     if (React.isValidElement(child) && child.type === FormField) {
                         return React.cloneElement(child as React.ReactElement, {
                             onChange: handleChange,
-                            value: formData[(child as React.ReactElement).props.name]
+                            value: formData[(child as React.ReactElement).props.name],
+                            error: errors[(child as React.ReactElement).props.name]
                         });
                     }
                     return child;
@@ -46,7 +72,9 @@ const MainFormLogin: React.FC<MainFormProps> = ({children, handleSubmit}) => {
                 className={"form-control"}
                 type={"button"}
                 variant="outline-danger"
-                onClick={() => handleSubmit(formData)}
+                onClick={() => {
+                    if (!validateForm()) handleSubmit(formData)
+                }}
             >
                 Đăng nhập
             </Button>

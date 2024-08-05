@@ -23,7 +23,7 @@ export const CardNewBook: React.FC<CardNewBookProps> = ({className, book}) => {
             </a>
             <span className={"book-price"}>
                 {formatVND(book.bookPrice)}
-                <Badge bg="danger" className={"py-2 ms-2"}>{book.bookDiscount}%</Badge>
+                <Badge bg="danger" className={"py-2 ms-2"}>- {book.bookDiscount}%</Badge>
             </span>
             <span className={"book-price-discount"}>{getDiscountPrice(book.bookPrice, book.bookDiscount)}</span>
             <span className={"paid"}>Đã bán 100</span>
