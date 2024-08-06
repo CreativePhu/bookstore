@@ -24,17 +24,14 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "user_name")
-    private String userName;
-
     @Column(name = "password")
     @JsonIgnore
     private String password;
 
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     private String phone;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "active")

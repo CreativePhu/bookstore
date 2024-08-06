@@ -4,8 +4,10 @@ import com.vn.bookstore_be.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +25,11 @@ public class AuthenConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
     public DaoAuthenticationProvider authenticationProvider(UserDetailService userDetailService){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailService);
@@ -34,18 +41,19 @@ public class AuthenConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
                 .requestMatchers(HttpMethod.GET, EndPointConfig.PUBLIC_GET_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.POST, EndPointConfig.PUBLIC_POST_ENDPOINTS).permitAll()
                 .anyRequest().authenticated()
         );
         http.httpBasic(Customizer.withDefaults());
         http.cors(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
-//        http.cors(cors -> cors.configurationSource(request -> {
-//            CorsConfiguration corsConfiguration = new CorsConfiguration();
-//            corsConfiguration.addAllowedOrigin(EndPointConfig.ALLOWED_ORIGINS);
-//            corsConfiguration.setAllowedMethods(Arrays.stream(EndPointConfig.ALLOWED_METHODS).toList());
-//            corsConfiguration.addAllowedHeader("*");
-//            return corsConfiguration;
-//        }));
+        http.cors(cors -> cors.configurationSource(request -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration();
+            corsConfiguration.addAllowedOrigin(EndPointConfig.ALLOWED_ORIGINS);
+            corsConfiguration.setAllowedMethods(Arrays.stream(EndPointConfig.ALLOWED_METHODS).toList());
+            corsConfiguration.addAllowedHeader("*");
+            return corsConfiguration;
+        }));
         return http.build();
     }
 }

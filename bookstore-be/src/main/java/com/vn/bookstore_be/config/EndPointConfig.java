@@ -5,7 +5,13 @@ public class EndPointConfig {
     public static final String ALLOWED_ORIGINS = "http://localhost:3000";
 
     public static final String[] PUBLIC_GET_ENDPOINTS = {
-            "/hello-world"
+            "/hello-world",
+            "/books",
+            "/books/**"
+    };
+
+    public static final String[] PUBLIC_POST_ENDPOINTS = {
+            "/users/login"
     };
 
     public static final String[] ALLOWED_METHODS = {
