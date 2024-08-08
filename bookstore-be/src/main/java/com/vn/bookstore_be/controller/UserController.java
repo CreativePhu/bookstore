@@ -1,8 +1,9 @@
 package com.vn.bookstore_be.controller;
 
-import com.vn.bookstore_be.dto.GenerateRequestOtpDTO;
+import com.vn.bookstore_be.dto.GenerateOtpRequestDTO;
 import com.vn.bookstore_be.dto.LoginRequestDTO;
 import com.vn.bookstore_be.dto.LoginResponseDTO;
+import com.vn.bookstore_be.dto.VerifyOtpRequestDTO;
 import com.vn.bookstore_be.exception.AuthenticationException;
 import com.vn.bookstore_be.model.User;
 import com.vn.bookstore_be.service.EmailService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/users")
@@ -52,9 +54,22 @@ public class UserController {
     }
 
     @PostMapping("/send-otp")
-    public ResponseEntity<?> sendOtp(@RequestBody GenerateRequestOtpDTO generateRequestOtpDTO) throws MessagingException {
-        emailService.sendOTP(generateRequestOtpDTO.getEmail(), generateOtp());
+    public ResponseEntity<?> sendOtp(@RequestBody GenerateOtpRequestDTO generateOtpRequestDTO) throws MessagingException {
+        String otp = generateOtp();
+        redisService.setWithExpireTime(generateOtpRequestDTO.getEmail(), otp, 2, TimeUnit.MINUTES);
+        emailService.sendOTP(generateOtpRequestDTO.getEmail(), otp);
         return ResponseEntity.ok("OTP has been sent to your email");
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<?> verifyOtp(@RequestBody VerifyOtpRequestDTO verifyOtpRequestDTO) {
+        String otp = (String) redisService.get(verifyOtpRequestDTO.getEmail());
+        if (otp == null) return ResponseEntity.badRequest().body("OTP has expired or not found");
+        if (otp.equals(verifyOtpRequestDTO.getOtp())) {
+            redisService.delete(verifyOtpRequestDTO.getEmail());
+            return ResponseEntity.ok("OTP is correct");
+        }
+        return ResponseEntity.badRequest().body("OTP is incorrect");
     }
 
     // Generate OTP

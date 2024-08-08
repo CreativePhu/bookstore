@@ -13,6 +13,7 @@ public class EndPointConfig {
     public static final String[] PUBLIC_POST_ENDPOINTS = {
             "/users/login",
             "/users/send-otp",
+            "/users/verify-otp",
     };
 
     public static final String[] ALLOWED_METHODS = {

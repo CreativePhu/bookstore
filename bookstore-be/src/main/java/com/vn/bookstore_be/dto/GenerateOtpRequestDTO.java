@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenerateRequestOtpDTO {
+public class GenerateOtpRequestDTO {
     private String email;
 }
