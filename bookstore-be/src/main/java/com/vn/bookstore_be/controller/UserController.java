@@ -2,17 +2,12 @@ package com.vn.bookstore_be.controller;
 
 import com.vn.bookstore_be.dto.*;
 import com.vn.bookstore_be.exception.AuthenticationException;
-import com.vn.bookstore_be.model.User;
 import com.vn.bookstore_be.service.EmailService;
-import com.vn.bookstore_be.service.JwtService;
 import com.vn.bookstore_be.service.RedisService;
 import com.vn.bookstore_be.service.UserSerivce;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,43 +20,30 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/users")
 public class UserController {
 
-    private final AuthenticationManager authenticationManager;
     private final UserSerivce userSerivce;
-    private final JwtService jwtService;
     private final RedisService redisService;
     private final EmailService emailService;
 
     @Autowired
-    public UserController(AuthenticationManager authenticationManager, UserSerivce userSerivce, JwtService jwtService, RedisService redisService, EmailService emailService, BCryptPasswordEncoder passwordEncoder) {
-        this.authenticationManager = authenticationManager;
+    public UserController(UserSerivce userSerivce, RedisService redisService, EmailService emailService) {
         this.userSerivce = userSerivce;
-        this.jwtService = jwtService;
         this.redisService = redisService;
         this.emailService = emailService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) throws AuthenticationException {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
-            User user = userSerivce.getUserByEmail(loginRequestDTO.getEmail());
-            return ResponseEntity.ok(new LoginResponseDTO(user, jwtService.generateToken(user.getEmail())));
-        } catch (Exception e) {
-            throw new AuthenticationException("Invalid email or password");
-        }
+        return userSerivce.userLogin(loginRequestDTO);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
-        final String otp = (String) redisService.get(registerRequestDTO.getEmail());
-        if (otp == null) return ResponseEntity.badRequest().body("OTP has expired or not found");
-        if (registerRequestDTO.getOtp().equals(otp)) {
-            redisService.delete(registerRequestDTO.getEmail());
-            userSerivce.userRegister(registerRequestDTO);
-            return ResponseEntity.ok("User has been registered");
-        } else {
-            return ResponseEntity.badRequest().body("OTP is incorrect");
-        }
+        return userSerivce.userRegister(registerRequestDTO);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequestDTO forgotPasswordRequestDTO) {
+        return userSerivce.forgotPassword(forgotPasswordRequestDTO);
     }
 
     @PostMapping("/send-otp")
