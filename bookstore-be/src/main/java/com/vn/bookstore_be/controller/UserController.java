@@ -1,9 +1,6 @@
 package com.vn.bookstore_be.controller;
 
-import com.vn.bookstore_be.dto.GenerateOtpRequestDTO;
-import com.vn.bookstore_be.dto.LoginRequestDTO;
-import com.vn.bookstore_be.dto.LoginResponseDTO;
-import com.vn.bookstore_be.dto.VerifyOtpRequestDTO;
+import com.vn.bookstore_be.dto.*;
 import com.vn.bookstore_be.exception.AuthenticationException;
 import com.vn.bookstore_be.model.User;
 import com.vn.bookstore_be.service.EmailService;
@@ -15,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +32,7 @@ public class UserController {
     private final EmailService emailService;
 
     @Autowired
-    public UserController(AuthenticationManager authenticationManager, UserSerivce userSerivce, JwtService jwtService, RedisService redisService, EmailService emailService) {
+    public UserController(AuthenticationManager authenticationManager, UserSerivce userSerivce, JwtService jwtService, RedisService redisService, EmailService emailService, BCryptPasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.userSerivce = userSerivce;
         this.jwtService = jwtService;
@@ -50,6 +48,19 @@ public class UserController {
             return ResponseEntity.ok(new LoginResponseDTO(user, jwtService.generateToken(user.getEmail())));
         } catch (Exception e) {
             throw new AuthenticationException("Invalid email or password");
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+        final String otp = (String) redisService.get(registerRequestDTO.getEmail());
+        if (otp == null) return ResponseEntity.badRequest().body("OTP has expired or not found");
+        if (registerRequestDTO.getOtp().equals(otp)) {
+            redisService.delete(registerRequestDTO.getEmail());
+            userSerivce.userRegister(registerRequestDTO);
+            return ResponseEntity.ok("User has been registered");
+        } else {
+            return ResponseEntity.badRequest().body("OTP is incorrect");
         }
     }
 

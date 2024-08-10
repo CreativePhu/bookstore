@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -28,7 +29,7 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @Column(name = "phone", unique = true)
+    @Column(name = "phone", unique = true,  nullable = true)
     private String phone;
 
     @Column(name = "email", unique = true)
@@ -50,4 +51,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+
+    public void addRole(Role role) {
+        if(roles == null){
+            roles = new ArrayList<>();
+            roles.add(role);
+        } else {
+            roles.add(role);
+        }
+    }
 }

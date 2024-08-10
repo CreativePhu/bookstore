@@ -14,6 +14,7 @@ public class EndPointConfig {
             "/users/login",
             "/users/send-otp",
             "/users/verify-otp",
+            "/users/register"
     };
 
     public static final String[] ALLOWED_METHODS = {
