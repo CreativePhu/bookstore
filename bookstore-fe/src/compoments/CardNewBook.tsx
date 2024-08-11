@@ -4,6 +4,7 @@ import {BookInterface} from "../interfaces/BookServiceInterfaces";
 import {formatVND} from "../utils/FormartPrice";
 import {getMainImage} from "../utils/GetMainImage";
 import {getDiscountPrice} from "../utils/GetDiscountPrice";
+import {StarRating} from "./StarRating";
 
 interface CardNewBookProps {
     className?: string;
@@ -21,6 +22,7 @@ export const CardNewBook: React.FC<CardNewBookProps> = ({className, book}) => {
             <a href={"/"} className={"book-title"}>
                 {book.bookName}
             </a>
+            <StarRating />
             <span className={"book-price"}>
                 {formatVND(book.bookPrice)}
             </span>

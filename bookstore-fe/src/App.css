@@ -97,6 +97,14 @@
     font-weight: 400;
 }
 
+.star-rating {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
+}
+
 .book-price {
     font-weight: 700;
     color: crimson;
