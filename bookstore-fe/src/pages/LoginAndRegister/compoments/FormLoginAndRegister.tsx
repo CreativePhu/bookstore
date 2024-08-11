@@ -1,10 +1,10 @@
 import React from "react";
-import {Overlay} from "../compoments/Overlay";
+import {Overlay} from "../../../compoments/Overlay";
 import {Col, Row} from "react-bootstrap";
-import FormLogin from "../compoments/FormLogin";
-import {FormRegister} from "../compoments/FormRegister";
+import FormLogin from "../../../compoments/FormLogin";
+import {FormRegister} from "../../../compoments/FormRegister";
 import * as Icon from "react-bootstrap-icons";
-import {useFormLoginAndRegisterDispatch} from "../App";
+import {useFormLoginAndRegisterDispatch} from "../../../App";
 
 export enum OptionType {
     LOGIN = "LOGIN",

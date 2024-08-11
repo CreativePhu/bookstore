@@ -1,10 +1,10 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import {Navbar} from "./containers/Navbar";
-import {Footer} from "./containers/Footer";
+import {Navbar} from "./layouts/Navbar";
+import {Footer} from "./layouts/Footer";
 import {Outlet} from "react-router-dom";
-import {FormLoginAndRegister} from "./containers/FormLoginAndRegister";
+import {FormLoginAndRegister} from "./pages/LoginAndRegister/compoments/FormLoginAndRegister";
 
 const StatusFormLoginAndRegisterContext = React.createContext<boolean>(false);
 const FormLoginAndRegisterDispatch = React.createContext<null | React.Dispatch<boolean>>(null);

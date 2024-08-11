@@ -5,9 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {LoginAndRegister} from "./pages/LoginAndRegister";
-import {Content} from "./containers/Content";
-import {Home} from "./pages/Home";
+import {LoginAndRegister} from "./pages/LoginAndRegister/LoginAndRegister";
+import {Content} from "./layouts/Content";
+import {Home} from "./pages/Home/Home";
 
 const router = createBrowserRouter([
     {

@@ -1,9 +1,9 @@
 import React from "react";
 import {Alert, Button, Container, Spinner} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import {CardNewBook} from "../compoments/CardNewBook";
-import {BookInterface} from "../interfaces/BookServiceInterfaces";
-import {GetBooks} from "../api/BookService";
+import {CardNewBook} from "../../../compoments/CardNewBook";
+import {BookInterface} from "../../../interfaces/BookServiceInterfaces";
+import {GetBooks} from "../../../service/BookService";
 
 enum ScrollStatus {
     LEFT = "left",
@@ -21,7 +21,7 @@ const NewBookLable: React.FC = () => {
                     <h4 className={"mb-0"}>Sách Mới</h4>
                 </div>
                 <Button variant="link" className={"py-1 px-0 text-decoration-none"}>
-                        <span className={"fw-bold"}>
+                        <span className={"fw-semibold"} style={{fontSize: "14px"}}>
                             Xem tất cả <Icon.ChevronRight size={20}/>
                         </span>
                 </Button>

@@ -64,7 +64,7 @@
 
 .book {
     background-color: white;
-    border-radius: 6px;
+    border-radius: 4px;
     padding: 10px;
     width: 250px;
     max-width: 250px;
@@ -86,18 +86,19 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 2.4rem;
-    line-height: 1.2rem;
-    text-align: center;
+    height: 1.8rem;
+    line-height: 0.9rem;
+    text-align: start;
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none;
     color: black;
     width: 100%;
+    font-weight: 400;
 }
 
 .book-price {
-    font-weight: bold;
+    font-weight: 700;
     color: crimson;
     margin-top: 8px;
     font-size: 18px;
@@ -106,13 +107,15 @@
 
 .book-price-discount {
     font-size: 16px;
+    font-weight: 700;
     color: #888;
     text-decoration: line-through;
     align-self: start;
+    min-height: 27px;
 }
 
 .paid {
-    color: lightgray;
+    color: darkgray;
     font-size: 14px;
     margin-top: 10px;
 }

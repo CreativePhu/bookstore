@@ -1,9 +1,9 @@
 import React from "react";
 import {Alert, Button, Container, Spinner} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import {CardNewBook} from "../compoments/CardNewBook";
-import {BookInterface} from "../interfaces/BookServiceInterfaces";
-import {GetBooks} from "../api/BookService";
+import {CardNewBook} from "../../../compoments/CardNewBook";
+import {BookInterface} from "../../../interfaces/BookServiceInterfaces";
+import {GetBooks} from "../../../service/BookService";
 
 const LabelShoppingTrends: React.FC = () => {
     return (

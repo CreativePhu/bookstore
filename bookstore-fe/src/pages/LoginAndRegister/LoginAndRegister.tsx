@@ -1,8 +1,8 @@
 import React from "react";
-import FormLogin from "../compoments/FormLogin";
+import FormLogin from "../../compoments/FormLogin";
 import {Container, Row} from "react-bootstrap";
-import {FormRegister} from "../compoments/FormRegister";
-import {Option, OptionType} from "../containers/FormLoginAndRegister";
+import {FormRegister} from "../../compoments/FormRegister";
+import {Option, OptionType} from "./compoments/FormLoginAndRegister";
 
 export const LoginAndRegister: React.FC = () => {
 
