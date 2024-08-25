@@ -23,7 +23,7 @@ public class Role {
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "userRoles")
     @JsonIgnore
     private List<User> users;
 }

@@ -21,8 +21,8 @@ public class Image {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "main_image")
-    private boolean mainImage;
+    @Column(name = "image_primary")
+    private boolean imagePrimary;
 
     @ManyToOne
     @JoinColumn(name = "book_id")

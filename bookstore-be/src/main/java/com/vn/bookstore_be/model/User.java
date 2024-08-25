@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -13,36 +14,23 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "user")
-public class User {
+@DiscriminatorValue("user")
+public class User extends BaseUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private long userId;
-
-    @Column(name = "full_name")
-    private String fullName;
-
-    @Column(name = "password")
+    @Column(name = "user_password")
     @JsonIgnore
-    private String password;
+    private String userPassword;
 
-    @Column(name = "phone", unique = true,  nullable = true)
-    private String phone;
+    @Column(name = "user_status")
+    private boolean userStatus;
 
-    @Column(name = "email", unique = true)
-    private String email;
+    @Column(name = "user_created_date")
+    private LocalDateTime userCreatedDate;
 
-    @Column(name = "active")
-    private boolean active;
-
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
-    @Column(name = "updated_date")
-    private LocalDateTime updatedDate;
+    @Column(name = "user_updated_date")
+    private LocalDateTime userUpdatedDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -50,14 +38,14 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> roles;
+    private List<Role> userRoles;
 
     public void addRole(Role role) {
-        if(roles == null){
-            roles = new ArrayList<>();
-            roles.add(role);
+        if(userRoles == null){
+            userRoles = new ArrayList<>();
+            userRoles.add(role);
         } else {
-            roles.add(role);
+            userRoles.add(role);
         }
     }
 }

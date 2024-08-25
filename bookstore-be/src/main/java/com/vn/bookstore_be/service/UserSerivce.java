@@ -37,16 +37,20 @@ public class UserSerivce {
         this.redisService = redisService;
     }
 
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(userRepository.findAll());
+    }
+
     public User getUserByEmail(String email){
-        return userRepository.findByEmail(email);
+        return userRepository.findByUserEmailAddress(email);
     }
 
     // login method
     public ResponseEntity<?> userLogin(LoginRequestDTO loginRequestDTO) throws AuthenticationException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
-            User user = userRepository.findByEmail(loginRequestDTO.getEmail());
-            return ResponseEntity.ok(new LoginResponseDTO(user, jwtService.generateToken(user.getEmail())));
+            User user = userRepository.findByUserEmailAddress(loginRequestDTO.getEmail());
+            return ResponseEntity.ok(new LoginResponseDTO(user, jwtService.generateToken(user.getUserEmailAddress())));
         } catch (Exception e) {
             throw new AuthenticationException("Invalid email or password");
         }
@@ -54,7 +58,7 @@ public class UserSerivce {
 
     // register method
     public ResponseEntity<?> userRegister(RegisterRequestDTO registerRequestDTO) {
-        if (userRepository.existsByEmail(registerRequestDTO.getEmail())) return ResponseEntity.badRequest().body("Email is already taken");
+        if (userRepository.existsByUserEmailAddress(registerRequestDTO.getEmail())) return ResponseEntity.badRequest().body("Email is already taken");
 
         final String otp = (String) redisService.get(registerRequestDTO.getEmail());
         if (otp == null) return ResponseEntity.badRequest().body("OTP has expired or not found");
@@ -66,12 +70,12 @@ public class UserSerivce {
             if (role == null) throw new ResourceNotFoundException("Role not found with name: USER");
 
             User user = new User();
-            user.setFullName(registerRequestDTO.getEmail());
-            user.setEmail(registerRequestDTO.getEmail());
-            user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
-            user.setActive(true);
-            user.setCreatedDate(java.time.LocalDateTime.now());
-            user.setUpdatedDate(java.time.LocalDateTime.now());
+            user.setUserFullName(registerRequestDTO.getEmail());
+            user.setUserEmailAddress(registerRequestDTO.getEmail());
+            user.setUserPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+            user.setUserStatus(true);
+            user.setUserCreatedDate(java.time.LocalDateTime.now());
+            user.setUserUpdatedDate(java.time.LocalDateTime.now());
             user.addRole(role);
             userRepository.save(user);
 
@@ -83,7 +87,7 @@ public class UserSerivce {
 
     // forgot password method
     public ResponseEntity<?> forgotPassword(ForgotPasswordRequestDTO forgotPasswordRequestDTO) {
-        User user = userRepository.findByEmail(forgotPasswordRequestDTO.getEmail());
+        User user = userRepository.findByUserEmailAddress(forgotPasswordRequestDTO.getEmail());
         if (user == null) return ResponseEntity.badRequest().body("User not found");
 
         String otp = (String) redisService.get(forgotPasswordRequestDTO.getEmail());
@@ -91,7 +95,7 @@ public class UserSerivce {
 
         if (forgotPasswordRequestDTO.getOtp().equals(otp)) {
             redisService.delete(forgotPasswordRequestDTO.getEmail());
-            user.setPassword(passwordEncoder.encode(forgotPasswordRequestDTO.getPassword()));
+            user.setUserPassword(passwordEncoder.encode(forgotPasswordRequestDTO.getPassword()));
             userRepository.save(user);
             return ResponseEntity.ok("Password has been changed");
         } else {

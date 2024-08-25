@@ -27,7 +27,7 @@ public class PackagingSize {
     @Column(name = "height")
     private double height;
 
-    @OneToOne
+    @OneToOne(mappedBy = "bookPackagingSize")
     @JsonIgnore
     private Book book;
 
