@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -34,13 +35,29 @@ public class Book {
     @Column(name = "book_quantity")
     private int bookQuantity;
 
+    @Column(name = "book_publication_year")
+    private LocalDateTime bookPublicationYear;
+
+    @Column(name = "book_weight")
+    private double bookWeight;
+
+    @Column(name = "book_pages")
+    private int bookPages;
+
+    @OneToOne
+    @JoinColumn(name = "packaging_size_id")
+    private PackagingSize bookPackagingSize;
+
+    @ManyToMany(mappedBy = "books")
+    private List<Language> bookLanguages;
+
     @ManyToMany
     @JoinTable(
             name = "book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private List<Author> authors;
+    private List<Author> bookAuthors;
 
     @ManyToMany
     @JoinTable(
@@ -48,12 +65,13 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categories;
+    private List<Category> bookCategories;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
+    private Publisher bookPublisher;
 
     @OneToMany(mappedBy = "book")
-    private List<Image> images;
+    private List<Image> bookImages;
 }
+

@@ -6,24 +6,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "packaging_size")
+public class PackagingSize {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private long categoryId;
+    @Column(name = "packaging_size_id")
+    private long packagingSizeId;
 
-    @Column(name = "category_name")
-    private String categoryName;
+    @Column(name = "length")
+    private double length;
 
-    @ManyToMany(mappedBy = "bookCategories")
+    @Column(name = "width")
+    private double width;
+
+    @Column(name = "height")
+    private double height;
+
+    @OneToOne
     @JsonIgnore
-    private List<Book> books;
+    private Book book;
+
 }

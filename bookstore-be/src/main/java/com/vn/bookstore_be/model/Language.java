@@ -12,19 +12,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "author")
-public class Author {
+@Table(name = "language")
+public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "author_id")
-    private Long authorId;
+    @Column(name = "language_id")
+    private long languageId;
 
-    @Column(name = "author_name")
-    private String authorName;
+    @Column(name = "language_name")
+    private String languageName;
 
-    @ManyToMany(mappedBy = "bookAuthors")
+    @ManyToMany
     @JsonIgnore
+    @JoinTable(
+            name = "book_language",
+            joinColumns = @JoinColumn(name = "language_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
     private List<Book> books;
-
 }
